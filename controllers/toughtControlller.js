@@ -57,18 +57,18 @@ module.exports = {
     }
   },
   //DELETE to remove a thought by its _id
-  async deleteCourse(req, res) {
+  async deleteThoughtById(req, res) {
     try {
-      const course = await Course.findOneAndDelete({
-        _id: req.params.courseId,
+      const thought = await thought.findOneAndDelete({
+        _id: req.params.thoughtId,
       });
 
-      if (!course) {
-        res.status(404).json({ message: "No course with that ID" });
+      if (!user) {
+        res.status(404).json({ message: "No thought was found with that ID" });
       }
 
-      await Student.deleteMany({ _id: { $in: course.students } });
-      res.json({ message: "Course and students deleted!" });
+      await thought.deleteMany({ _id: { $in: thought.reaction } });
+      res.json({ message: "User and thoughts deleted!" });
     } catch (err) {
       res.status(500).json(err);
     }
