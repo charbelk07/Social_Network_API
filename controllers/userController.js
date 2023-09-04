@@ -1,15 +1,28 @@
 const { Reaction, Thought, User } = require("../models");
 
-module.exports = {
-  //GET all users
-  async getUsers(req, res) {
-    try {
-      const users = await Users.find();
-      res.json(users);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  },
+// module.exports = {
+//   // Get all courses
+//   async getUsers(req, res) {
+//     try {
+//       const users = await User.find();
+//       res.json(courses);
+//     } catch (err) {
+//       res.status(500).json(err);
+//     }
+//   },
+
+  //////////
+
+  module.exports = {
+    GET all users
+    async getUsers(req, res) {
+      try {
+        const users = await User.find().select("__v");
+        res.json(users);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    },
   //GET a single user by its _id and populated thought and friend data
   async getSingleUser(req, res) {
     try {
