@@ -17,7 +17,7 @@ module.exports = {
   // GET all users
   async getUsers(req, res) {
     try {
-      const users = await User.find().select("__v");
+      const users = await User.find().select("-__v");
       res.json(users);
     } catch (err) {
       console.log(err);
@@ -27,9 +27,9 @@ module.exports = {
   //GET a single user by its _id and populated thought and friend data
   async getSingleUser(req, res) {
     try {
-      const user = await user
-        .findOne({ _id: req.params.userId })
-        .select("-__v");
+      const user = await User.findOne({ _id: req.params.userId }).select(
+        "-__v"
+      );
 
       if (!user) {
         return res.status(404).json({ message: "No User with that ID" });

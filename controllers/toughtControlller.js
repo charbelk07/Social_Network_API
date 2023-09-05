@@ -5,7 +5,7 @@ module.exports = {
   async getAllThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
-      res.json(courses);
+      res.json(thoughts);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -14,7 +14,7 @@ module.exports = {
   async getSingleThought(req, res) {
     try {
       const thought = await Thought.findOne({
-        _id: req.params.thoughtsId,
+        _id: req.params.thoughtId,
       }).select("-__v");
 
       if (!thought) {
@@ -59,15 +59,15 @@ module.exports = {
   //DELETE to remove a thought by its _id
   async deleteThoughtById(req, res) {
     try {
-      const thought = await thought.findOneAndDelete({
+      const thought = await Thought.findOneAndDelete({
         _id: req.params.thoughtId,
       });
 
-      if (!user) {
+      if (!thought) {
         res.status(404).json({ message: "No thought was found with that ID" });
       }
 
-      await thought.deleteMany({ _id: { $in: thought.reaction } });
+      await thought.deleteMany({ _id: { $in: Thought.reaction } });
       res.json({ message: "User and thoughts deleted!" });
     } catch (err) {
       res.status(500).json(err);
