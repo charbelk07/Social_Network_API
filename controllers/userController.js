@@ -17,7 +17,7 @@ module.exports = {
   // GET all users
   async getUsers(req, res) {
     try {
-      const users = await User.find().select("-__v");
+      const users = await User.find().select("-__v").populate("friends");
       res.json(users);
     } catch (err) {
       console.log(err);
@@ -112,7 +112,7 @@ module.exports = {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $addToSet: { friends: req.body } },
+        { $addToSet: { friends: req.params.friendId } },
         { runValidators: true, new: true }
       );
 
